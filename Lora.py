@@ -54,16 +54,19 @@ retries = 0
 while True:
     status = lora.send("=", ClientAddress)
     if status is True:
-        print("Messagesd sent!", len("="))
+        print("Header sent!")
     else:
         print("none")
     Timer1.start(3)
     Data_Recv2 = ""
     while True:
         if Data_Recv != "":
-            print(repr(Data_Recv[0]))
-            Data_Recv2 = Data_Recv[0:1].decode('ascii')
-            Data_Recv = ""
+            try:
+                Data_Recv2 = Data_Recv[0:1].decode('ascii')
+                Data_Recv = ""
+            except:
+                Data_Recv2 = "dummy"
+                print("character error")
             break
         if Timer1.justFinished():
             print("No reply, Failed")
@@ -95,6 +98,7 @@ for i in range(int(lens/length)+1):
                     Data_Recv2 = Data_Recv[0:-1].decode('ascii')
                 except:
                     Data_Recv2 = "dummy"
+                    print("character error")
                 Data_Recv = ""
                 break
             if Timer1.justFinished():
@@ -105,11 +109,11 @@ for i in range(int(lens/length)+1):
             retries = 0
             break
         if retries >= 5:
-            print("Tried 3 times, but none talaga")
+            print("Tried many times, but no reception or lossy signal")
             break 
             # return
     if retries >= 5:
-        print("Tried 3 times, but none talaga")
+        print("Tried many times, but no reception or lossy signal")
         break    
 
 ##FOOTER SENDING
@@ -117,16 +121,19 @@ retries = 0
 while True:
     status = lora.send("=", ClientAddress)
     if status is True:
-        print("Messagesd sent!", len("="))
+        print("Footer sent!")
     else:
         print("none")
     Timer1.start(3)
     Data_Recv2 = ""
     while True:
         if Data_Recv != "":
-            Data_Recv2 = Data_Recv[0:-1].decode('ascii')
-            print(repr(Data_Recv2), repr(message))
-            Data_Recv = ""
+            try:
+                Data_Recv2 = Data_Recv[0:1].decode('ascii')
+                Data_Recv = ""
+            except:
+                Data_Recv2 = "dummy"
+                print("character error")
             break
         if Timer1.justFinished():
             print("No reply, Failed")
