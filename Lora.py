@@ -46,6 +46,9 @@ def SendFiles(FilePath):
     f = open(FilePath, "rb+")
     file_bytes = f.read()
     file_bytes = base64.b64encode(file_bytes)
+    if file_bytes[-2::] != b'==':
+        file_bytes = file_bytes + b'=='
+    print(file_bytes)
     lens = len(file_bytes)
     length = 248
 
