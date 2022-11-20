@@ -3,7 +3,7 @@ f = open("/home/pi/Desktop/Main/GUI/Video.jpg", "rb+")
 x = f.read()
 x = base64.b64encode(x)
 
-print(x[0:500])
+print('f' + str(x[0:500].decode('ascii')))
 lens = len(x)
 print(lens/250)
 for i in range(int(lens/250)+1):
