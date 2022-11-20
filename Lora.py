@@ -46,9 +46,10 @@ def SendFiles(FilePath):
     f = open(FilePath, "rb+")
     file_bytes = f.read()
     file_bytes = base64.b64encode(file_bytes)
-    if file_bytes[-2::] != b'==':
-        file_bytes = file_bytes + b'=='
-    print(file_bytes)
+    if file_bytes[-2::] != b'##':
+        print("added")
+        file_bytes = file_bytes + b'##'
+
     lens = len(file_bytes)
     length = 248
 
@@ -109,7 +110,7 @@ def SendFiles(FilePath):
                     print("No reply, retrying again.")
                     break
             retries = retries + 1
-            FooterFoundAt = Data_Recv2.find('==')
+            FooterFoundAt = Data_Recv2.find('##')
             if FooterFoundAt != -1:
                 Data_Recv2 = Data_Recv2[0:FooterFoundAt+3]
             if Data_Recv2 == message:
@@ -154,5 +155,5 @@ def SendFiles(FilePath):
     f.close()
     return True
 
-print("Final Result: ",SendFiles("/home/pi/Desktop/Main/GUI/Video.jpg"))
+print("Final Result: ",SendFiles("/home/pi/Desktop/Main/GUI/Video4.jpg"))
 lora.close()
