@@ -2,7 +2,7 @@ import base64
 from pyLoraRFM9x  import LoRa, ModemConfig
 import time
 
-MaximumRetries = 5
+MaximumRetries = 100
 class MyTimer:
     def __init__(self):
         self.StartTime = 0
@@ -56,7 +56,7 @@ def SendFiles(FilePath):
     ##HEADER SENDING
     retries = 0          
     while True:
-        status = lora.send("=", ClientAddress)
+        status = lora.send("="+FilePath.split("/")[-1]+"$$"+str(int(lens/length)+1)+"^^", ClientAddress)
         if status is True:
             print("Header sent!")
         else:
