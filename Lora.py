@@ -92,7 +92,7 @@ def SendFiles(FilePath):
         while True:
             status = lora.send(message, ClientAddress)
             if status is True:
-                print("Packet " + str(i) + " out of " + str(int(lens/length)+1) +" packets" +" sent! (" + str(round((i/(int(lens/length)+1))*100,2)) + "%)", len(message))
+                print("Packet " + str(i+1) + " out of " + str(int(lens/length)+1) +" packets" +" sent! (" + str(round(((i+1)/(int(lens/length)+1))*100,2)) + "%)", len(message))
             else:
                 print("none")
             Timer1.start(3)
